@@ -1,0 +1,9 @@
+http://turmys.kz/api/authenticate?cacheBuster=1504420895722 POST
+body: {"username":"123456789321","password":"qwerty12","rememberMe":true}
+
+Return: id_token
+
+http://turmys.kz/api/account?cacheBuster=1504420895928 GET
+HEADERS Authorization:Bearer id_token
+
+Return: {"id":69192,"login":"123456789321","firstName":"qwe","lastName":"qwe","patronymic":"qwe","socialStatus":null,"birthday":null,"phone":"+77051232312","email":"damir_keldibekov@mail.ru","activated":true,"langKey":"ru","adsAccept":false,"emailAccept":false,"authorities":["ROLE_USER"],"fullName":"qwe qwe qwe","shortName":"qwe Q. Q.","region":null,"kskId":null,"avatar":null,"avatarContentType":null}
