@@ -1,0 +1,3 @@
+rootProject.name = 'kaztg'
+
+include ':app'
