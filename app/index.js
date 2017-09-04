@@ -24,21 +24,30 @@ import {
     WebView
 } from 'react-native';
 
-import StaticWebView from './StaticWebView';
-import Login from './Login';
+import { DrawerNavigator } from 'react-navigation';
+import AboutScreen from './AboutScreen';
+import LoginScreen from './LoginScreen';
+import SideBar from './SideBar';
 
-export default class kaztg extends Component {
-
-
-
-
-    render() {
-        return (
-            <Login/>
-
-            /*<StaticWebView uri={'http://turmys.kz/'}/>*/
-        );
+const kaztg = DrawerNavigator(
+    {
+        Login: {
+            path: '/',
+            screen: LoginScreen
+        },
+        About: {
+            path: '/about',
+            screen: AboutScreen
+        }
+    },
+    {
+        initialRouteName: 'About',
+        contentOptions: {
+            activeTintColor: 'black',
+            inactiveTintColor: '#4f3252',
+        },
+        contentComponent: props => <SideBar {...props} />
     }
-}
+);
 
 AppRegistry.registerComponent('kaztg', () => kaztg);

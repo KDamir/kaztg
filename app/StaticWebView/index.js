@@ -1,5 +1,5 @@
 import React from 'react';
-import {WebView} from 'react-native';
+import {WebView, View, Text} from 'react-native';
 
 export default class StaticWebView extends React.PureComponent {
     props: {
@@ -15,7 +15,7 @@ export default class StaticWebView extends React.PureComponent {
     navStateChange = (navState) => {
         if(!this.state.loading) {
             const injectedJavascript = `
-                var token = ${token};
+                var token = ${this.props.token};
                 window.localStorage.setItem("jhi-authenticationToken", '"' + token + '"');
             `;
             this.refs.myWebView.injectJavaScript(injectedJavascript);
