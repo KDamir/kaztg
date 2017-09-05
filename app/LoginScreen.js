@@ -33,18 +33,22 @@ export default class LoginScreen extends React.PureComponent {
     state = {
         iin: '',
         password: '',
-        errorMessage: false,
+        errorMessage: '',
         token: null
     };
 
     _login = async () => {
         let response = await this.postRequest();
+        if(response === undefined) {
+            this.setState({errorMessage: 'Проверьте подключение к интернету'});
+            return
+        }
         if(!response.ok) {
-            this.setState({errorMessage: true})
+            this.setState({errorMessage: 'Неверные ИИН или пароль'});
             return
         }
         const id_token = response.json().id_token;
-        this.setState({errorMessage: false, token: id_token})
+        this.setState({errorMessage: false, token: id_token});
         await AsyncStorage.setItem('id_token', id_token);
     };
 
@@ -57,9 +61,6 @@ export default class LoginScreen extends React.PureComponent {
             body: JSON.stringify({username: `${username}`, password: `${password}`}),
             headers: {'Mobile-client': 'Webview-mobile-client'}
         })
-            .catch(e => {
-                console.error(e)
-            })
     };
 
     render() {
@@ -100,7 +101,7 @@ export default class LoginScreen extends React.PureComponent {
                             <Text style={{textAlign: 'center'}}>Войти</Text>
                         </Button>
                     </Content>
-                    {this.state.errorMessage && <View><Text>Неверные данные</Text></View>}
+                    {this.state.errorMessage !== '' && <View style={{paddingBottom: 20}}><Text style={{color: 'white'}}>{this.state.errorMessage}</Text></View>}
                 </View>
             </Container>;
         }
