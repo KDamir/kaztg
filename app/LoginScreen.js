@@ -37,10 +37,6 @@ export default class LoginScreen extends React.PureComponent {
         OneSignal.removeEventListener('ids', this.onIds);
     }
 
-    componentDidMount() {
-        OneSignal.sendTag("name", "value");
-    }
-
     onReceived(notification) {
         console.log("Notification received: ", notification);
     }
@@ -85,6 +81,7 @@ export default class LoginScreen extends React.PureComponent {
         const id_token = response.json().id_token;
         this.setState({errorMessage: false, token: id_token});
         await AsyncStorage.setItem('id_token', id_token);
+        await this.postTags();
     };
 
     postRequest = async () => {
@@ -97,6 +94,23 @@ export default class LoginScreen extends React.PureComponent {
             headers: {'Mobile-client': 'Webview-mobile-client'}
         })
     };
+
+    fetchData = async () => {
+        const url = `http://turmys.kz/api/account`;
+        const _token = this.state.token;
+        return await fetch(url, {
+            method: 'GET',
+            headers: {Authorization: 'Bearer ' + _token}
+        })
+    };
+
+    postTags = async () => {
+        const response = await this.fetchData();
+        if(response.ok) {
+            const res = response.json();
+            OneSignal.sendTag("email", res.email);
+        }
+    }
 
     render() {
         let screen;
