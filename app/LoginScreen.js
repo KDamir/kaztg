@@ -22,7 +22,7 @@ export default class LoginScreen extends React.PureComponent {
     };
 
     componentWillMount() {
-        //this.fetchToken();
+        this.fetchToken();
     }
 
     fetchToken = async () => {
@@ -34,7 +34,7 @@ export default class LoginScreen extends React.PureComponent {
         iin: '',
         password: '',
         errorMessage: false,
-        token: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjM0NTY3ODkzMjEiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNTA3MTM4MjQyfQ.PpVj-MnuksSZWPnS8lv_SxqWRZKadOvMpuYG4VhQgl9P-blcE0c_RpBObOINdUxbZr_V11UyzmJanRrWf3bYMA'
+        token: null
     };
 
     _login = async () => {
@@ -43,7 +43,9 @@ export default class LoginScreen extends React.PureComponent {
             this.setState({errorMessage: true})
             return
         }
-        this.setState({errorMessage: false, token: response.json().token})
+        const id_token = response.json().id_token;
+        this.setState({errorMessage: false, token: id_token})
+        await AsyncStorage.setItem('id_token', id_token);
     };
 
     postRequest = async () => {
@@ -62,7 +64,7 @@ export default class LoginScreen extends React.PureComponent {
 
     render() {
         let screen;
-        if(this.state.token !== '') {
+        if(this.state.token !== '' && this.state.token !== null) {
             screen = <StaticWebView uri="http://turmys.kz" token={this.state.token}/>
         }
         else {

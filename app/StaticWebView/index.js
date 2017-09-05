@@ -13,17 +13,16 @@ export default class StaticWebView extends React.PureComponent {
     };
 
     navStateChange = (navState) => {
-        if(!this.state.loading) {
-            const injectedJavascript = `
-                var token = ${this.props.token};
-                window.localStorage.setItem("jhi-authenticationToken", '"' + token + '"');
-            `;
-            this.refs.myWebView.injectJavaScript(injectedJavascript);
-        }
         this.setState({loading: navState.loading})
     };
 
     _loadStart = (event) => {
+        const token = '"' + this.props.token + '"';
+        const injectedJavascript = `
+                var token = ${token};
+                window.localStorage.setItem("jhi-authenticationToken", '"' + token + '"');
+            `;
+        this.refs.myWebView.injectJavaScript(injectedJavascript);
         this.setState({url: event.nativeEvent.url});
     };
 
