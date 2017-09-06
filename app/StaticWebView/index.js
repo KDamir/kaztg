@@ -31,6 +31,8 @@ export default class StaticWebView extends React.PureComponent {
             style={{flex: 1}}
             ref="myWebView"
             startInLoadingState
+            injectedJavaScript={injectedListenerForLogout}
+            onMessage={this.webViewMessage}
             onNavigationStateChange={this.navStateChange.bind(this)}
             onLoadStart={this._loadStart}
             source={{
@@ -40,4 +42,26 @@ export default class StaticWebView extends React.PureComponent {
         />;
     }
 
+    webViewMessage = async (event) => {
+        const data = event.nativeEvent.data;
+        let message;
+        try {
+            message = JSON.parse(data);
+        } catch (e) {
+            console.log('Error parsing data from webView message: ' + data);
+        }
+        if (message == null) return;
+        if (message.value === 'logout') {
+            await this.props.logout();
+        }
+    }
+
 }
+
+const injectedListenerForLogout = ` 
+var el = document.querySelector('a[ng-click="headerVm.logout()"]');
+el.addEventListener('click', function (event) {
+  var message = {type: 'click', value: 'logout'};
+  window.postMessage(JSON.stringify(message));
+});
+`;

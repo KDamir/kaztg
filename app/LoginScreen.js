@@ -122,10 +122,15 @@ export default class LoginScreen extends React.PureComponent {
         }
     };
 
+    _invalidateToken = async () => {
+        this.setState({token: null});
+        await AsyncStorage.removeItem('id_token');
+    };
+
     render() {
         let screen;
         if(this.state.token !== '' && this.state.token !== null) {
-            screen = <StaticWebView uri="http://turmys.kz" token={this.state.token}/>
+            screen = <StaticWebView uri="http://turmys.kz" token={this.state.token} logout={this._invalidateToken}/>
         }
         else {
             screen = <Container>
