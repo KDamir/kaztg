@@ -19,7 +19,7 @@ import StaticWebView from './StaticWebView';
 export default class LoginScreen extends React.PureComponent {
 
     static navigationOptions = {
-        drawerLabel: 'Авторизация',
+        drawerLabel: 'Главное меню',
     };
 
     componentWillMount() {
@@ -74,11 +74,17 @@ export default class LoginScreen extends React.PureComponent {
             this.setState({errorMessage: 'Проверьте подключение к интернету'});
             return
         }
-        if(!response.ok) {
+        if(response.status === 401) {
             this.setState({errorMessage: 'Неверные ИИН или пароль'});
             return
         }
-        const id_token = response.json().id_token;
+
+        if(!response.ok) {
+            this.setState({errorMessage: 'Техническая ошибка'});
+            return
+        }
+        const result = JSON.parse(response._bodyText);
+        const id_token = result.id_token;
         this.setState({errorMessage: false, token: id_token});
         await AsyncStorage.setItem('id_token', id_token);
         await this.postTags();
@@ -88,11 +94,15 @@ export default class LoginScreen extends React.PureComponent {
         const url = `http://turmys.kz/api/authenticate`;
         const username = this.state.iin;
         const password = this.state.password;
+        const body = JSON.stringify({
+            "username": `${username}`,
+            "password": `${password}`
+        });
         return await fetch(url, {
             method: 'POST',
-            body: JSON.stringify({username: `${username}`, password: `${password}`}),
-            headers: {'Mobile-client': 'Webview-mobile-client'}
-        })
+            body: body,
+            headers: {'Content-Type': 'application/json'}
+        });
     };
 
     fetchData = async () => {
@@ -107,10 +117,10 @@ export default class LoginScreen extends React.PureComponent {
     postTags = async () => {
         const response = await this.fetchData();
         if(response.ok) {
-            const res = response.json();
+            const res = JSON.parse(response._bodyText);
             OneSignal.sendTag("email", res.email);
         }
-    }
+    };
 
     render() {
         let screen;
@@ -145,9 +155,9 @@ export default class LoginScreen extends React.PureComponent {
                                        secureTextEntry/>
                             </Item>
                         </Form>
-                        <Button info style={{alignSelf: 'center', marginTop: 30, width: width/3}} onPress={this._login.bind(this)}
+                        <Button info style={{alignSelf: 'center', justifyContent: 'center', marginTop: 30, width: width/3}} onPress={this._login.bind(this)}
                                 disabled={this.state.iin === '' || this.state.password === '' }>
-                            <Text style={{textAlign: 'center'}}>Войти</Text>
+                            <Text style={{textAlign: 'center', alignSelf: 'center'}}>Войти</Text>
                         </Button>
                     </Content>
                     {this.state.errorMessage !== '' && <View style={{paddingBottom: 20}}><Text style={{color: 'white'}}>{this.state.errorMessage}</Text></View>}

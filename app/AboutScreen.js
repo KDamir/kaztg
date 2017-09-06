@@ -38,7 +38,7 @@ export default class AboutScreen extends React.PureComponent {
                         Нет аккаунта?
                     </Text>
                     <TouchableHighlight onPress={() => Linking.openURL('http://turmys.kz/#/property')}>
-                        <Text style={{textAlign: 'center', color: 'white', textDecorationLine: 'underline'}}>
+                        <Text style={{textAlign: 'center', color: 'white', textDecorationLine: 'underline', paddingLeft: 10, paddingRight: 10}}>
                             Нажмите, чтобы зарегестрироваться на сайте
                         </Text>
                     </TouchableHighlight>
