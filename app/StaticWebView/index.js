@@ -33,7 +33,10 @@ export default class StaticWebView extends React.PureComponent {
             startInLoadingState
             onNavigationStateChange={this.navStateChange.bind(this)}
             onLoadStart={this._loadStart}
-            source={{uri: this.state.url}}
+            source={{
+                uri: this.state.url,
+                headers: {Authorization: 'Bearer ' + this.props.token}
+            }}
         />;
     }
 
