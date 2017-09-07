@@ -146,8 +146,10 @@ export default class LoginScreen extends React.PureComponent {
                         <Form>
                             <Item stackedLabel>
                                 <Label style={{color: 'white'}}>ИИН</Label>
-                                <Input keyboardType="numeric"
+                                <Input keyboardType="default"
                                        style={{color: 'white', width: width/2}}
+                                       blurOnSubmit={true}
+                                       returnKeyType="done"
                                        maxLength={12}
                                        value={this.state.iin}
                                        onChangeText={iin => this.setState({iin})}/>

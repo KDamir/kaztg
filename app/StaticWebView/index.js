@@ -1,5 +1,6 @@
 import React from 'react';
-import {WebView, View, Text} from 'react-native';
+import {WebView, View, Text, Dimensions} from 'react-native';
+const { width, height } = Dimensions.get('window');
 
 export default class StaticWebView extends React.PureComponent {
     props: {
@@ -28,7 +29,7 @@ export default class StaticWebView extends React.PureComponent {
 
     render() {
         return <WebView
-            style={{flex: 1}}
+            style={{flex: 1, width: width}}
             ref="myWebView"
             startInLoadingState
             injectedJavaScript={injectedListenerForLogout}
