@@ -146,7 +146,7 @@ export default class LoginScreen extends React.PureComponent {
                         overflow:'hidden',}}>
                         <Content style={{paddingTop: height/6}}>
                             <Image source={iconLogoImage} style={{alignSelf: 'center', width: 100, height: 100}}/>
-                            <Image source={logoImage} style={{alignSelf: 'center', marginBottom: 50, marginTop: 20}}/>
+                            <Image source={logoImage} style={{alignSelf: 'center', marginBottom: 50, marginTop: 5}}/>
                             <Form>
                                 <Item bordered
                                       rounded

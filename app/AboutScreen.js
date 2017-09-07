@@ -36,9 +36,9 @@ export default class AboutScreen extends React.PureComponent {
         return (
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                 <Image source={backgroundImage} style={{flex: 1, width: width, height: height}}>
-                    <Image source={iconLogoImage} style={{alignSelf: 'center', width: 50, height: 50}}/>
-                    <Image source={logoImage} style={{alignSelf: 'center', width: 50, height: 50}}/>
-                    <Text style={{textAlign: 'center', color: 'white', fontSize: 20}}>
+                    <Image source={iconLogoImage} style={{alignSelf: 'center', width: 100, height: 100, marginTop: height/6}}/>
+                    <Image source={logoImage} style={{alignSelf: 'center', marginTop: 5}}/>
+                    <Text style={{textAlign: 'center', color: 'white', fontSize: 20, paddingTop: 20}}>
                         Turmys - это система, которая облегчит ваши квартирные и домашние дела
                     </Text>
                     <View style={{position: 'absolute', bottom: 150}}>
