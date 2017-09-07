@@ -43,8 +43,8 @@ const kaztg = DrawerNavigator(
     {
         initialRouteName: 'About',
         contentOptions: {
-            activeTintColor: 'black',
-            inactiveTintColor: '#4f3252',
+            activeTintColor: '#1F586C',
+            inactiveTintColor: '#1F586C'
         },
         contentComponent: props => <SideBar {...props} />
     }

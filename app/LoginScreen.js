@@ -11,6 +11,8 @@ import {
 
 import { Container, Header, Content, Input, Item, Form, Label, Button,} from 'native-base';
 import logoImage from './images/turmys-white-logo.png';
+import iconLogoImage from './images/icon_logo.png';
+import backgroundImage from './images/background.png';
 const { width, height } = Dimensions.get('window');
 import OneSignal from 'react-native-onesignal';
 
@@ -130,45 +132,56 @@ export default class LoginScreen extends React.PureComponent {
     render() {
         let screen;
         if(this.state.token !== '' && this.state.token !== null) {
-            screen = <StaticWebView uri="http://turmys.kz" token={this.state.token} logout={this._invalidateToken}/>
+            screen = <StaticWebView uri="http://turmys.kz/#/property" token={this.state.token} logout={this._invalidateToken}/>
         }
         else {
             screen = <Container>
-                <View style={{
-                    flex: 1,
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#0b6990',
-                    overflow:'hidden',}}>
-                    <Content style={{paddingTop: height/4}}>
-                        <Image source={logoImage} style={{alignSelf: 'center', marginBottom: 50}}/>
-                        <Form>
-                            <Item stackedLabel>
-                                <Label style={{color: 'white'}}>ИИН</Label>
-                                <Input keyboardType="default"
-                                       style={{color: 'white', width: width/2}}
-                                       blurOnSubmit={true}
-                                       returnKeyType="done"
-                                       maxLength={12}
-                                       value={this.state.iin}
-                                       onChangeText={iin => this.setState({iin})}/>
-                            </Item>
-                            <Item stackedLabel>
-                                <Label style={{color: 'white'}}>Пароль</Label>
-                                <Input style={{color: 'white', width: width/2}}
-                                       value={this.state.name}
-                                       onChangeText={password => this.setState({password})}
-                                       secureTextEntry/>
-                            </Item>
-                        </Form>
-                        <Button info style={{alignSelf: 'center', justifyContent: 'center', marginTop: 30, width: width/3}} onPress={this._login.bind(this)}
-                                disabled={this.state.iin === '' || this.state.password === '' }>
-                            <Text style={{textAlign: 'center', alignSelf: 'center'}}>Войти</Text>
-                        </Button>
-                    </Content>
-                    {this.state.errorMessage !== '' && <View style={{paddingBottom: 20}}><Text style={{color: 'white'}}>{this.state.errorMessage}</Text></View>}
-                </View>
+                <Image source={backgroundImage} style={{flex: 1, width: width, height: height}}>
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: 'transparent',
+                        overflow:'hidden',}}>
+                        <Content style={{paddingTop: height/6}}>
+                            <Image source={iconLogoImage} style={{alignSelf: 'center', width: 100, height: 100}}/>
+                            <Image source={logoImage} style={{alignSelf: 'center', marginBottom: 50, marginTop: 20}}/>
+                            <Form>
+                                <Item bordered
+                                      rounded
+                                      style={{marginBottom: 10, width: width*5/7}}>
+                                    <Input keyboardType="default"
+                                           style={{color: 'white', width: width/2}}
+                                           placeholder={'Ваш ИИН'}
+                                           placeholderTextColor={'white'}
+                                           blurOnSubmit={true}
+                                           returnKeyType="done"
+                                           maxLength={12}
+                                           value={this.state.iin}
+                                           onChangeText={iin => this.setState({iin})}/>
+                                </Item>
+                                <Item bordered
+                                      rounded
+                                      style={{width: width*5/7}}>
+                                    <Input style={{color: 'white', width: width/2}}
+                                           value={this.state.name}
+                                           placeholder={'Пароль'}
+                                           placeholderTextColor={'white'}
+                                           onChangeText={password => this.setState({password})}
+                                           secureTextEntry/>
+                                </Item>
+                            </Form>
+                            <Button info rounded large
+                                    style={{alignSelf: 'center', justifyContent: 'center', marginTop: 30, width: width*5/7}}
+                                    onPress={this._login.bind(this)}
+                                    disabled={this.state.iin === '' || this.state.password === '' }>
+                                <Text style={{textAlign: 'center', alignSelf: 'center', color: 'white', fontWeight: 'bold'}}>Войти</Text>
+                            </Button>
+                        </Content>
+                        {this.state.errorMessage !== '' && <View style={{paddingBottom: 20}}><Text style={{color: 'white'}}>{this.state.errorMessage}</Text></View>}
+                    </View>
+                </Image>
             </Container>;
         }
         return(
