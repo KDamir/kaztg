@@ -74,7 +74,7 @@ export default class AboutScreen extends React.PureComponent {
                                 paddingRight: 10,
                                 fontWeight: 'bold'
                             }}>
-                                Зарегестрироваться
+                                Зарегистрироваться
                             </Text>
                         </TouchableHighlight>
                     </View>
