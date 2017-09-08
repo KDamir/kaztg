@@ -15,6 +15,12 @@ global.fetch = function (uri, options, ...args) {
     });
 };
 
+import 'core-js';
+
+window.onunhandledrejection = function(promise, reason) {
+    console.log('window.onunhandledrejection is', promise, reason);
+};
+
 import React, { Component } from 'react';
 import {
     AppRegistry,

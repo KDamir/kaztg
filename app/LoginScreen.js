@@ -40,28 +40,28 @@ export default class LoginScreen extends React.PureComponent {
     }
 
     onReceived(notification) {
-        console.log("Notification received: ", notification);
+        //console.log("Notification received: ", notification);
     }
 
     onOpened(openResult) {
-        console.log('Message: ', openResult.notification.payload.body);
-        console.log('Data: ', openResult.notification.payload.additionalData);
-        console.log('isActive: ', openResult.notification.isAppInFocus);
-        console.log('openResult: ', openResult);
+        // console.log('Message: ', openResult.notification.payload.body);
+        // console.log('Data: ', openResult.notification.payload.additionalData);
+        // console.log('isActive: ', openResult.notification.isAppInFocus);
+        // console.log('openResult: ', openResult);
     }
 
     onRegistered(notifData) {
-        console.log("Device had been registered for push notifications!", notifData);
+        //console.log("Device had been registered for push notifications!", notifData);
     }
 
     onIds(device) {
-        console.log('Device info: ', device);
+        //console.log('Device info: ', device);
     }
 
     fetchToken = async () => {
         const token = await AsyncStorage.getItem('id_token');
         this.setState({token: token});
-    }
+    };
 
     state = {
         iin: '',

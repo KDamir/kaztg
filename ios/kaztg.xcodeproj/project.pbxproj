@@ -23,6 +23,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1CCF47F6E57A4DFBA58D726F /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5024381AAF045908F00EC2A /* FontAwesome.ttf */; };
 		249EB3A627AF4E038F71054F /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6C26AB4167D4786919DE8E3 /* Foundation.ttf */; };
+		263FFB261F624271004FB015 /* libRCTWKWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 263FFB191F6241F2004FB015 /* libRCTWKWebView.a */; };
 		2654D49D1F5E9C4A001A7B9E /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2654D4891F5E9C2A001A7B9E /* libRCTOneSignal.a */; };
 		2B8864263D034EED8D924744 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 116A6653EFAF47799AEA4F2D /* Zocial.ttf */; };
 		3829322286094A67BD9BB235 /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39D04CB6E7C443C7878BF8B1 /* Roboto_medium.ttf */; };
@@ -93,6 +94,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		263FFB181F6241F2004FB015 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 263FFB021F6241F2004FB015 /* RCTWKWebView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0974579A1D2A440A000D9368;
+			remoteInfo = RCTWKWebView;
 		};
 		2654D42C1F5E93D0001A7B9E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -270,6 +278,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = kaztg/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = kaztg/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		263FFB021F6241F2004FB015 /* RCTWKWebView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWKWebView.xcodeproj; path = "../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView.xcodeproj"; sourceTree = "<group>"; };
 		2654D4611F5E971C001A7B9E /* kaztg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = kaztg.entitlements; path = kaztg/kaztg.entitlements; sourceTree = "<group>"; };
 		2654D47A1F5E9C29001A7B9E /* RCTOneSignal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTOneSignal.xcodeproj; path = "../../react-native-onesignal/ios/RCTOneSignal.xcodeproj"; sourceTree = "<group>"; };
 		39D04CB6E7C443C7878BF8B1 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
@@ -293,6 +302,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				263FFB261F624271004FB015 /* libRCTWKWebView.a in Frameworks */,
 				2654D49D1F5E9C4A001A7B9E /* libRCTOneSignal.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
@@ -422,6 +432,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		263FFB031F6241F2004FB015 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				263FFB191F6241F2004FB015 /* libRCTWKWebView.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2654D4791F5E9C29001A7B9E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,6 +495,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				263FFB021F6241F2004FB015 /* RCTWKWebView.xcodeproj */,
 				2654D47A1F5E9C29001A7B9E /* RCTOneSignal.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -624,6 +643,10 @@
 					ProjectRef = 139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */;
 				},
 				{
+					ProductGroup = 263FFB031F6241F2004FB015 /* Products */;
+					ProjectRef = 263FFB021F6241F2004FB015 /* RCTWKWebView.xcodeproj */;
+				},
+				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
@@ -690,6 +713,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		263FFB191F6241F2004FB015 /* libRCTWKWebView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTWKWebView.a;
+			remoteRef = 263FFB181F6241F2004FB015 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2654D42D1F5E93D0001A7B9E /* libthird-party.a */ = {
