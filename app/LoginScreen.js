@@ -6,17 +6,22 @@ import {
     TouchableHighlight,
     Dimensions,
     Image,
-    AsyncStorage
+    AsyncStorage,
+    KeyboardAvoidingView
 } from 'react-native';
 
 import { Container, Header, Content, Input, Item, Form, Label, Button,} from 'native-base';
 import logoImage from './images/turmys-white-logo.png';
 import iconLogoImage from './images/icon_logo.png';
 import backgroundImage from './images/background.png';
-const { width, height } = Dimensions.get('window');
+import menuImage from './images/menu.png';
 import OneSignal from 'react-native-onesignal';
 
 import StaticWebView from './StaticWebView';
+
+import styles from './styles';
+
+const { width, height } = Dimensions.get('window');
 
 export default class LoginScreen extends React.PureComponent {
 
@@ -135,8 +140,11 @@ export default class LoginScreen extends React.PureComponent {
             screen = <StaticWebView uri="http://turmys.kz/" token={this.state.token} logout={this._invalidateToken}/>
         }
         else {
-            screen = <Container>
+            screen = <Container style={styles.container}>
                 <Image source={backgroundImage} style={{flex: 1, width: width, height: height}}>
+                    <TouchableHighlight onPress={() => this.props.navigation.navigate('DrawerOpen')}>
+                        <Image source={menuImage} style={styles.menuButtonImage}/>
+                    </TouchableHighlight>
                     <View style={{
                         flex: 1,
                         flexDirection: 'column',
@@ -144,7 +152,7 @@ export default class LoginScreen extends React.PureComponent {
                         alignItems: 'center',
                         backgroundColor: 'transparent',
                         overflow:'hidden',}}>
-                        <Content style={{paddingTop: height/6}}>
+                        <KeyboardAvoidingView behavior={'padding'}>
                             <Image source={iconLogoImage} style={{alignSelf: 'center', width: 100, height: 100}}/>
                             <Image source={logoImage} style={{alignSelf: 'center', marginBottom: 50, marginTop: 5}}/>
                             <Form>
@@ -178,7 +186,7 @@ export default class LoginScreen extends React.PureComponent {
                                     disabled={this.state.iin === '' || this.state.password === '' }>
                                 <Text style={{textAlign: 'center', alignSelf: 'center', color: 'white', fontWeight: 'bold'}}>Войти</Text>
                             </Button>
-                        </Content>
+                        </KeyboardAvoidingView>
                         {this.state.errorMessage !== '' && <View style={{paddingBottom: 20}}><Text style={{color: 'white'}}>{this.state.errorMessage}</Text></View>}
                     </View>
                 </Image>
