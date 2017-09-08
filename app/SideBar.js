@@ -14,9 +14,9 @@ export default class SideBar extends React.PureComponent {
                 <Content contentContainerStyle={{
                     height: height
                 }}>
-                    <Image source={backgroundWhiteImage} style={{flex: 1, width: this.props.drawerWidth,}}>
+                    <Image source={backgroundWhiteImage} style={{flex: 1, width: undefined}}>
                         <View style={{
-                            width: this.props.drawerWidth,
+                            width: undefined,
                             height: height/4,
                             marginTop: height/15,
                             backgroundColor: 'transparent',
@@ -31,7 +31,9 @@ export default class SideBar extends React.PureComponent {
                                 }}>
                             </Image>
                         </View>
-                        <DrawerItems style={{alignSelf: 'center', marginTop: 5}} {...this.props}/>
+                        <DrawerItems {...this.props}
+                                    style={{justifyContent: 'center', alignSelf: 'center', width: width*4/5}}
+                                    labelStyle={{alignSelf: 'center', fontSize: 20}}/>
                         <View style={{position: 'absolute', bottom: 20, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignSelf: 'center'}}>
                             <Text style={{fontSize: 12, color: '#AFC8CF', fontWeight: 'bold', paddingBottom: 5}}>Наши контакты:</Text>
                             <Text style={{fontSize: 12, paddingBottom: 2, color: 'grey'}}>Республика Казахстан, г. Астана,</Text>
