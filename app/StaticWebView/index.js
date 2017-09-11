@@ -25,7 +25,7 @@ export default class StaticWebView extends React.PureComponent {
 
     render() {
         return <WKWebView
-            style={{flex: 1, width: width}}
+            style={{flex: 1, width: width, marginTop: 20}}
             ref="myWebView"
             startInLoadingState
             injectedJavaScript={injectedListenerForLogout}
