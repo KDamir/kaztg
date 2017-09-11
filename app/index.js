@@ -30,10 +30,26 @@ import {
     WebView
 } from 'react-native';
 
-import { DrawerNavigator } from 'react-navigation';
+import { DrawerNavigator, StackNavigator } from 'react-navigation';
 import AboutScreen from './AboutScreen';
 import LoginScreen from './LoginScreen';
 import SideBar from './SideBar';
+import FirstScreen from './Registration/FirstScreen';
+import SecondScreen from './Registration/SecondScreen';
+import ThirdScreen from './Registration/ThirdScreen';
+
+const RegistrationScreen = StackNavigator({
+    First: {
+        screen: FirstScreen
+    },
+    Second: {
+        screen: SecondScreen,
+    },
+    Third: {
+        screen: ThirdScreen,
+    }
+});
+
 
 const kaztg = DrawerNavigator(
     {
@@ -44,6 +60,10 @@ const kaztg = DrawerNavigator(
         About: {
             path: '/about',
             screen: AboutScreen
+        },
+        Registration: {
+            path: '/registration',
+            screen: RegistrationScreen
         }
     },
     {

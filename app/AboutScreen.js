@@ -19,7 +19,6 @@ import {
     Dimensions
 } from 'react-native';
 
-import { StackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Card, CardItem } from 'native-base';
 import logoImage from './images/turmys-white-logo.png';
 import iconLogoImage from './images/icon_logo.png';
@@ -65,7 +64,7 @@ export default class AboutScreen extends React.PureComponent {
                         <Text style={{textAlign: 'center', color: 'white',}}>
                             Нет аккаунта?
                         </Text>
-                        <TouchableHighlight onPress={() => Linking.openURL('http://turmys.kz/#/property')}>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Registration')}>
                             <Text style={{
                                 textAlign: 'center',
                                 color: 'white',

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions} from 'react-native';
+import {Dimensions, Platform, WebView} from 'react-native';
 import WKWebView from 'react-native-wkwebview-reborn';
 const { width, height } = Dimensions.get('window');
 
@@ -24,18 +24,34 @@ export default class StaticWebView extends React.PureComponent {
     };
 
     render() {
-        return <WKWebView
-            style={{flex: 1, width: width, marginTop: 20}}
-            ref="myWebView"
-            startInLoadingState
-            injectedJavaScript={injectedListenerForLogout}
-            onMessage={this.webViewMessage}
-            onLoadStart={this._loadStart}
-            source={{
-                uri: this.state.url,
-                headers: {Authorization: 'Bearer ' + this.props.token}
-            }}
-        />;
+        return(
+        Platform.OS === 'ios' ?
+            <WKWebView
+                style={{flex: 1, width: width, marginTop: 20}}
+                ref="myWebView"
+                startInLoadingState
+                injectedJavaScript={injectedListenerForLogout}
+                onMessage={this.webViewMessage}
+                onLoadStart={this._loadStart}
+                source={{
+                    uri: this.state.url,
+                    headers: {Authorization: 'Bearer ' + this.props.token}
+                }}
+            />
+        :
+            <WebView
+                style={{flex: 1, width: width, marginTop: 20}}
+                ref="myWebView"
+                startInLoadingState
+                injectedJavaScript={injectedListenerForLogout}
+                onMessage={this.webViewMessage}
+                onLoadStart={this._loadStart}
+                source={{
+                    uri: this.state.url,
+                    headers: {Authorization: 'Bearer ' + this.props.token}
+                }}
+            />
+        );
     }
 
     webViewMessage = async (data) => {
