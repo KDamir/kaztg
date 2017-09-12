@@ -79,7 +79,7 @@ export default class FirstScreen extends React.PureComponent {
                                       style={styles.item}>
                                     <Input keyboardType="default"
                                            style={{color: 'white', width: width/2}}
-                                           placeholder={'ИИН'}
+                                           placeholder={'ИИН (Логин)'}
                                            maxLength={12}
                                            placeholderTextColor={'white'}
                                            blurOnSubmit={true}
@@ -119,8 +119,7 @@ export default class FirstScreen extends React.PureComponent {
                                                 this.state.phone === ''  ||
                                                 this.state.family === '' ||
                                                 this.state.email === ''  ||
-                                                this.state.iin === ''    ||
-                                                this.state.otchestvo === ''
+                                                this.state.iin === ''
                                         }>
                                     <Text style={{textAlign: 'center', alignSelf: 'center', color: 'white', fontWeight: 'bold'}}>Далее</Text>
                                 </Button>
