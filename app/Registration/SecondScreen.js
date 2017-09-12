@@ -29,14 +29,12 @@ import {
 import logoImage from './../images/turmys-white-logo.png';
 import iconLogoImage from './../images/icon_logo.png';
 import backgroundImage from './../images/background.png';
-import menuImage from './../images/menu.png';
 
 const { width, height } = Dimensions.get('window');
 
+import {NavigationActions} from 'react-navigation';
+
 export default class SecondScreen extends React.PureComponent {
-    static navigationOptions = {
-        header: null,
-    };
 
     state = {
         pass1: '',
@@ -44,16 +42,27 @@ export default class SecondScreen extends React.PureComponent {
         check1: true,
         check2: false,
         check3: false,
+        errorMsg: '',
+        responseMsg: ''
     }
 
     componentDidMount() {
         console.log(this.props.navigation.state.params);
     }
 
+    checkPass = () => {
+        if(this.state.pass1 !== this.state.pass2) {
+            this.setState({errorMsg: 'Пароли не совпадают'});
+            return false;
+        }
+        return true;
+    };
+
     _register = async () => {
+        if(!this.checkPass()) return;
         const url = `http://turmys.kz/api/register`;
 
-        const {params} = this.props.navigation.state.params;
+        const params = this.props.navigation.state.params;
         const adsAccept = this.state.check1;
         const agreementAccept = this.state.check2;
         const email = params.email;
@@ -76,31 +85,40 @@ export default class SecondScreen extends React.PureComponent {
             "password": `${password}`,
             "patronymic": `${patronymic}`,
             "phone": `${phone}`
-        })
+        });
 
         let response = await fetch(url, {
             method: 'POST',
-            body: body
-        })
+            body: body,
+            headers: {'Content-Type': 'application/json'}
+        });
+        if(response === undefined) {
+            this.setState({responseMsg: 'Проверьте соединение к интернету'})
+        }
+        if(response.status === 400) {
+            this.setState({responseMsg: response._bodyText})
+        }
+        if(!response.ok) {
+            this.setState({responseMsg: 'Техническая ошибка'})
+        }
+        if(response.status === 201) {
+            this.setState({responseMsg: 'Успешно! Проверьте свою почту.'})
+        }
 
-
-    }
+    };
 
     render() {
         return(
             <Container style={styles.container}>
             <Content>
                 <Image source={backgroundImage} style={styles.background}>
-                    <TouchableHighlight onPress={() => this.props.navigation.navigate('DrawerOpen')}>
-                        <Image source={menuImage} style={styles.menuButtonImage}/>
-                    </TouchableHighlight>
-                    <Image source={iconLogoImage} style={{alignSelf: 'center', width: 100, height: 100}}/>
-                    <Image source={logoImage} style={{alignSelf: 'center', marginBottom: 50, marginTop: 5}}/>
+                    <Image source={iconLogoImage} style={{alignSelf: 'center', width: 70, height: 70}}/>
+                    <Image source={logoImage} style={{alignSelf: 'center', marginBottom: 20, marginTop: 5}}/>
                     <KeyboardAvoidingView behavior={'padding'}>
                         <Form>
                             <Item bordered
                                   rounded
-                                  style={{width: width*5/7}}>
+                                  style={styles.item}>
                                 <Input style={{color: 'white', width: width/2}}
                                        value={this.state.name}
                                        placeholder={'Пароль'}
@@ -110,7 +128,7 @@ export default class SecondScreen extends React.PureComponent {
                             </Item>
                             <Item bordered
                                   rounded
-                                  style={{width: width*5/7}}>
+                                  style={styles.item}>
                                 <Input style={{color: 'white', width: width/2}}
                                        value={this.state.name}
                                        placeholder={'Повторите пароль'}
@@ -118,6 +136,7 @@ export default class SecondScreen extends React.PureComponent {
                                        onChangeText={pass2 => this.setState({pass2})}
                                        secureTextEntry/>
                             </Item>
+                            {this.state.errorMsg !== '' && <Text style={{color: '#EEE8AA', textAlign: 'center'}}>{this.state.errorMsg}</Text>}
                             <ListItem>
                                 <CheckBox
                                     checked={this.state.check1}
@@ -148,16 +167,18 @@ export default class SecondScreen extends React.PureComponent {
                                 </Body>
                             </ListItem>
                         </Form>
-                        <Button info rounded
-                                style={{alignSelf: 'center', justifyContent: 'center', marginTop: 30, width: width*5/7}}
+                        <Button info
+                                rounded
+                                style={{alignSelf: 'center', justifyContent: 'center', marginTop: 50, width: width*5/7, height: height/15}}
                                 onPress={this._register}
-                                disabled={false}>
+                                disabled={this.state.pass1 === '' || !this.state.check3}>
                             <Text style={{textAlign: 'center', alignSelf: 'center', color: 'white', fontWeight: 'bold'}}>Зарегистрироваться</Text>
                         </Button>
+                        {this.state.responseMsg !== '' && <Text style={{color: '#EEE8AA', textAlign: 'center'}}>{this.state.responseMsg}</Text>}
                         <TouchableHighlight
-                            onPress={() => this.props.navigation.navigate('First')}
+                            onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
                             underlayColor={'white'}>
-                            <Text style={styles.text}>Назад</Text>
+                            <Text style={{color: 'white', textAlign: 'center', paddingTop: 10, fontSize: 15, textDecorationLine: 'underline'}}>Назад</Text>
                         </TouchableHighlight>
                     </KeyboardAvoidingView>
                 </Image>
@@ -170,13 +191,11 @@ export default class SecondScreen extends React.PureComponent {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 20,
     },
     background: {
         flex: 1,
         width: width,
         height: height,
-        justifyContent: 'center',
         alignItems: 'center'
     },
     menuButtonImage: {
@@ -191,5 +210,11 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'left',
         paddingLeft: 10,
+        fontSize: 10
+    },
+    item: {
+        marginBottom: 10,
+        width: width*5/7,
+        height: height/15
     }
 });

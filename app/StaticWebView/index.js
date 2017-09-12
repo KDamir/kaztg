@@ -10,18 +10,25 @@ export default class StaticWebView extends React.PureComponent {
     };
 
     state = {
-        url: this.props.uri
+        url: this.props.uri,
+        count: 0
     };
 
     _loadStart = (event) => {
-        const token = '"' + this.props.token + '"';
-        const injectedJavascript = `
+        this.setState({url: event.nativeEvent.url});
+    };
+
+    _loadEnd = (event) => {
+        if(this.state.count === 0) {
+            const token = '"' + this.props.token + '"';
+            const injectedJavascript = `
                 var token = ${token};
                 window.localStorage.setItem("jhi-authenticationToken", '"' + token + '"');
             `;
-        this.refs.myWebView.evaluateJavaScript(injectedJavascript);
-        this.setState({url: event.nativeEvent.url});
-    };
+            this.refs.myWebView.evaluateJavaScript(injectedJavascript);
+        }
+        this.setState({count: this.state.count + 1});
+    }
 
     render() {
         return(
@@ -33,6 +40,7 @@ export default class StaticWebView extends React.PureComponent {
                 injectedJavaScript={injectedListenerForLogout}
                 onMessage={this.webViewMessage}
                 onLoadStart={this._loadStart}
+                onLoadEnd={this._loadEnd}
                 source={{
                     uri: this.state.url,
                     headers: {Authorization: 'Bearer ' + this.props.token}

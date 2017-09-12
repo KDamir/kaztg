@@ -27,7 +27,11 @@ import {
     StyleSheet,
     Text,
     View,
-    WebView
+    WebView,
+    TouchableHighlight,
+    Image,
+    TouchableOpacity,
+    Dimensions
 } from 'react-native';
 
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
@@ -37,6 +41,22 @@ import SideBar from './SideBar';
 import FirstScreen from './Registration/FirstScreen';
 import SecondScreen from './Registration/SecondScreen';
 import ThirdScreen from './Registration/ThirdScreen';
+import { NavigationActions } from 'react-navigation'
+import menuImage from './images/menu.png';
+import backgroundImage from './images/background.png';
+const { width, height } = Dimensions.get('window');
+
+const DrawerButton = ({ navigation }) => (
+    <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
+        <Image source={backgroundImage} style={{flex: 1, width: width, height: height,}}>
+            <Image source={menuImage} style={{backgroundColor: 'transparent', marginTop: 13, marginRight: 13, marginBottom: 13, marginLeft: 13,}}/>
+        </Image>
+    </TouchableOpacity>
+);
+
+DrawerButton.propTypes = {
+    navigation: React.PropTypes.object.isRequired,
+};
 
 const RegistrationScreen = StackNavigator({
     First: {
@@ -48,7 +68,13 @@ const RegistrationScreen = StackNavigator({
     Third: {
         screen: ThirdScreen,
     }
-});
+},
+    {
+        navigationOptions: ({navigation}) => ({
+            headerLeft: <DrawerButton navigation={navigation} />,
+        }),
+    }
+);
 
 
 const kaztg = DrawerNavigator(
@@ -57,13 +83,16 @@ const kaztg = DrawerNavigator(
             path: '/',
             screen: LoginScreen
         },
+        Registration: {
+            path: '/registration',
+            screen: RegistrationScreen,
+            navigationOptions: {
+                title: 'Регистрация'
+            }
+        },
         About: {
             path: '/about',
             screen: AboutScreen
-        },
-        Registration: {
-            path: '/registration',
-            screen: RegistrationScreen
         }
     },
     {
