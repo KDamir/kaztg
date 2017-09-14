@@ -39,10 +39,9 @@ export default class StaticWebView extends React.PureComponent {
                 startInLoadingState
                 injectedJavaScript={injectedListenerForLogout}
                 onMessage={this.webViewMessage}
-                onLoadStart={this._loadStart}
                 onLoadEnd={this._loadEnd}
                 source={{
-                    uri: this.state.url,
+                    uri: 'http://turmys.kz/#/property',
                     headers: {Authorization: 'Bearer ' + this.props.token}
                 }}
             />
