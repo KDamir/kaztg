@@ -41,6 +41,7 @@ import SideBar from './SideBar';
 import FirstScreen from './Registration/FirstScreen';
 import SecondScreen from './Registration/SecondScreen';
 import ThirdScreen from './Registration/ThirdScreen';
+import BackButton from './BackButton';
 import { NavigationActions } from 'react-navigation'
 import menuImage from './images/menu.png';
 import backgroundImage from './images/background.png';
@@ -67,6 +68,9 @@ const RegistrationScreen = StackNavigator({
     },
     Third: {
         screen: ThirdScreen,
+        navigationOptions: ({navigation}) => ({
+          headerLeft: <BackButton navigation={navigation} />,
+        }),
     }
 },
     {
